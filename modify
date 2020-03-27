@@ -1,0 +1,102 @@
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+public class modify extends JFrame {
+	
+	JPanel pan = new JPanel();
+	JPanel pan1 = new JPanel();
+	JLabel lb_id = new JLabel("学号");
+	JTextField tf_id = new JTextField(10);
+	JLabel lb_name = new JLabel("姓名");
+	JTextField tf_name = new JTextField(8);
+	JLabel lb_kecheng = new JLabel("签到时间");
+	JTextField tf_kecheng = new JTextField(20);
+	JLabel lb_score = new JLabel("疫情情况");
+	JTextField tf_score = new JTextField(8);
+	JButton add_ok = new JButton("确认");
+    JButton  reset = new JButton("重置");
+	public modify(final ArrayList<Student> as) {
+		// TODO Auto-generated constructor stub
+		setBounds(500, 500, 450, 300);
+		getContentPane().setLayout(new BorderLayout());
+		pan.setLayout(new GridLayout(4,2));
+		lb_id.setHorizontalAlignment(SwingConstants.CENTER);
+		pan.add(lb_id);
+		pan.add(tf_id);
+		lb_name.setHorizontalAlignment(SwingConstants.CENTER);
+		pan.add(lb_name);
+		pan.add(tf_name);
+		lb_kecheng.setHorizontalAlignment(SwingConstants.CENTER);
+		pan.add(lb_kecheng);
+		pan.add(tf_kecheng);
+		lb_score.setHorizontalAlignment(SwingConstants.CENTER);
+		pan.add(lb_score);
+		pan.add(tf_score);
+		pan1.add(add_ok);
+		getContentPane().add(pan,BorderLayout.NORTH);
+		getContentPane().add(pan1,BorderLayout.SOUTH);
+		
+		pan1.add(reset);
+		setVisible(true);
+		add_ok.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String str_id,str_name,str_kecheng,str_score;
+				str_id = tf_id.getText();
+				str_name = tf_name.getText();
+				str_kecheng = tf_kecheng.getText();
+				str_score = tf_score.getText();
+				/*if(!as.contains(str_id))
+				{
+					
+				}*/
+				boolean flag = false;
+				for (Student student : as) {
+					if(student.id.equals(str_id))
+					{
+						flag = true;
+						student.name=str_name;
+						student.kecheng=str_kecheng;
+						student.score = str_score;
+					}	
+				}
+				if(!flag)
+				{
+					JDialog dl = new JDialog();
+					JLabel text = new JLabel("没有这条记录！重新输入！");
+					dl.add(text);
+					dl.setSize(100,100);
+					dl.setLocationRelativeTo(null);
+					dl.setVisible(true);
+				}
+			}
+		});
+		
+		reset.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				tf_id.setText("");
+				tf_name.setText("");
+				tf_kecheng.setText("");
+				tf_score.setText("");
+			}
+		});
+ 
+	}
+ 
+}
+
