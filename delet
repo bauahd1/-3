@@ -1,0 +1,75 @@
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class delet  extends JFrame  {
+		JPanel panel = new JPanel();
+		JPanel panel2 = new JPanel();
+		JLabel jl = new JLabel("将要删除记录的学号：");
+		JTextField jt = new JTextField(10);
+		JButton jb_ok = new JButton("OK");
+		
+	 delet(final ArrayList<Student> as){
+	 	
+	 	getContentPane().add(panel, BorderLayout.CENTER);
+	 	getContentPane().add(panel2, BorderLayout.SOUTH);
+	 	setSize(300,200);
+		 panel.add(jl);
+		 panel.add(jt);
+		 panel2.add(jb_ok);
+		 setBounds(500, 500, 450, 300);
+		 setVisible(true);
+		 jb_ok.addActionListener(new ActionListener() {
+			
+			public void actionPerformed1(ActionEvent e) {
+				// TODO Auto-generated method stub
+				boolean flag = true;
+				for (Student student : as) {
+					if(student.id.equals(jt.getText()))
+					{
+						flag = false;
+						as.remove(student);
+						JDialog dl = new JDialog();
+						JLabel text = new JLabel("删除成功！");
+						dl.add(text);
+						dl.setSize(100,100);
+						dl.setLocationRelativeTo(null);
+						dl.setVisible(true);
+					}
+					
+				}
+				if(flag)
+				{
+					JDialog dl = new JDialog();
+					JLabel text = new JLabel("没有这条记录！");
+					dl.add(text);
+					dl.setSize(100,100);
+					dl.setLocationRelativeTo(null);
+					dl.setVisible(true);
+				}
+			}
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	}
+ 
+	
+}
+
+
+
+
+
+
