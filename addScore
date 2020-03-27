@@ -1,0 +1,130 @@
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+ 
+import javax.swing.*;
+ 
+public class addScore extends JFrame implements ActionListener {
+	JPanel pan = new JPanel();
+	JPanel pan1 = new JPanel();
+	JLabel lb_id = new JLabel("学号");
+	JTextField tf_id = new JTextField(10);
+	JLabel lb_name = new JLabel("姓名");
+	JTextField tf_name1 = new JTextField(8);
+	JLabel lb_kecheng1 = new JLabel("签到时间");
+	JTextField tf_name = new JTextField(8);
+	JLabel lb_kecheng = new JLabel("老家地址");
+	JTextField tf_kecheng = new JTextField(20);
+	JLabel lb_score = new JLabel("疫情情况");
+	JTextField tf_score = new JTextField(7);
+	JTextField tf_name11 = new JTextField(9);
+	JLabel lb_kecheng11 = new JLabel("老家地址");
+	JButton add_ok = new JButton("确认");
+    JButton  reset = new JButton("重置");
+    /*
+	 * Create the frame.
+	 */
+	public addScore(final ArrayList<Student> as) {
+		
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(500, 500, 450, 300);
+	
+		//contentPane.setLayout(new BorderLayout(0, 0));
+		getContentPane().setLayout(new BorderLayout());
+		pan.setLayout(new GridLayout(4,2));
+		lb_id.setHorizontalAlignment(SwingConstants.CENTER);
+		pan.add(lb_id);
+		pan.add(tf_id);
+		lb_name.setHorizontalAlignment(SwingConstants.CENTER);
+		pan.add(lb_name);
+		pan.add(tf_name1);
+		lb_kecheng1.setHorizontalAlignment(SwingConstants.CENTER);
+		pan.add(lb_kecheng1);
+		pan.add(tf_kecheng);
+		lb_score.setHorizontalAlignment(SwingConstants.CENTER);
+		pan.add(lb_score);
+		pan.add(tf_score);
+		pan1.add(add_ok);
+		getContentPane().add(pan,BorderLayout.NORTH);
+		getContentPane().add(pan1,BorderLayout.SOUTH);
+		
+		pan1.add(reset);
+		setVisible(true);
+		
+		reset.addActionListener(this);
+		add_ok.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String str_id,str_name,str_kecheng,str_score;
+				str_id = tf_id.getText();
+				str_name = tf_name1.getText();
+				str_kecheng = tf_kecheng.getText();
+				str_score = tf_score.getText();
+				try {                                                                         // 异常检测！
+					
+					if(Double.parseDouble(str_score)<0||Double.parseDouble(str_score)>100)      
+						throw new NegativeScoreException("please enter a correct score!");
+				  if(str_id.equals("")||str_name.equals("")||str_kecheng.equals("")||str_score.equals("")){
+					    //System.out.print("logerro");
+						throw new NegativeStuException("no input !");}
+				} catch (NegativeScoreException es) {
+					// TODO: handle exception
+					System.out.println(es);
+				} catch(NegativeStuException es) {
+					System.out.println(es);
+				}
+				as.add(new Student(str_id, str_name, str_kecheng, str_score));
+				JDialog jd_ok = new JDialog();
+				JLabel jl_ok = new JLabel();
+				jl_ok.setText("添加成功！");
+				jd_ok.add(jl_ok);
+				jd_ok.setSize(200,100);
+				jd_ok.setLocationRelativeTo(null);
+				jd_ok.setVisible(true);
+			}
+		});
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		/*if(e.getSource()==add_ok){
+			add();
+		}*/
+		if(e.getSource()==reset){
+			reset();
+		}
+	}
+	void add(){}
+	
+	void reset(){
+		tf_id.setText("");
+		tf_name1.setText("");
+		tf_kecheng.setText("");
+		tf_score.setText("");
+	}
+	
+ 
+}
+ class NegativeScoreException extends Exception
+{
+	 public NegativeScoreException(String mes) {
+		// TODO Auto-generated constructor stub
+		super(mes);
+	}
+}
+ 
+ class NegativeStuException extends Exception
+ {
+	 public NegativeStuException(String mes) {
+		// TODO Auto-generated constructor stub
+		 super(mes);
+	}
+ }
+
+
+ 
