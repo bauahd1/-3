@@ -1,0 +1,16 @@
+
+public class Student {
+	String id;
+	String name;
+
+	public Student(String id, String name, String kecheng, String score) {
+		//super();
+		this.id = id;
+		this.name = name;
+		this.kecheng = kecheng;
+		this.score = score;
+		
+	}
+	String kecheng;
+	String score;
+}
